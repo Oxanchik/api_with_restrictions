@@ -95,8 +95,29 @@ pip install -r requirements.txt
 manage.py migrate
 ```
 
-Выполнить команду:
+Настройте пароль к Postgres:
+
+Скопируйте файл-пример и переименуйте его в .env
+```bash
+cp .env.example .env        # macOS/Linux
+copy .env.example .env      # Windows
+```
+
+Откройте файл .env в любом текстовом редакторе и замените your_password_here на ваш пароль:
+```bash
+DB_PASS='your_password_here'
+```
+Также можно заменить логин и название базы данных:
+```bash
+DB_USER='postgres'
+DB_NAME='api_restrictions_db'
+```
+
+
+Выполните команду:
 
 ```bash
 python manage.py runserver
 ```
+
+
