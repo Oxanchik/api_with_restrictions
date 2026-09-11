@@ -19,22 +19,7 @@ class AdvertisementViewSet(ModelViewSet):
     filterset_class = AdvertisementFilter
     ordering_fields = ['created_at', 'updated_at']
     ordering = ['-created_at']  # Сортировка по умолчанию: сначала новые
-
-
-    def get_permissions(self):
-        """Получение прав для действий."""
-
-        # Для создания, обновления и удаления -> требуется авторизация
-        if self.action in ["create", "update", "partial_update", "destroy"]:
-            permission_classes = [IsAuthenticated]
-        else:
-            permission_classes = [IsAuthenticatedOrReadOnly]
-
-        # Для обновления и удаления -> также проверяются права
-        if self.action in ["update", "partial_update", "destroy"]:
-            permission_classes.append(IsOwnerOrReadOnly)
-
-        return [permission() for permission in permission_classes]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     def get_queryset(self):
         """
